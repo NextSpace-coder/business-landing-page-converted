@@ -1,0 +1,88 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+import bg1 from '../../assets/images/bg/blog01.jpg'
+
+import NavbarTwo from "../../components/navbar/navbarTwo";
+import FooterSix from "../../components/footer/footerSix";
+import ScrollTop from "../../components/scrollTop";
+
+import { blogMasonry } from "../../data/data";
+
+import Masonry, {ResponsiveMasonry} from "react-responsive-masonry"
+
+import {FiArrowRight} from "../../assets/icons/vander"
+
+export default function BlogMasonry(){
+    return(
+        <>
+        <NavbarTwo navClass="defaultscroll sticky" manuClass="navigation-menu nav-light nav-right"/>
+        <section className="bg-half-170 d-table w-100" style={{backgroundImage:`url(${bg1})`}}>
+            <div className="bg-overlay bg-gradient-overlay"></div>
+            <div className="container">
+                <div className="row mt-5 justify-content-center">
+                    <div className="col-12">
+                        <div className="title-heading text-center">
+                            <h5 className="heading fw-semibold page-heading text-white title-dark">Blog & News</h5>
+                            <p className="text-white-50 para-desc mx-auto mb-0">Our Latest Blog and News in Grid Layouts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section className="section">
+            <div className="container">
+                <div className="row" id="grid">
+                    <ResponsiveMasonry columnsCountBreakPoints={{350: 1, 750: 2, 900: 3}}>
+                        <Masonry>
+                        {blogMasonry.map((item,index)=>{
+                            return(
+                            <div className="picture-item p-2" key={index}>
+                                <div className="card blog blog-primary shadow rounded overflow-hidden">
+                                    <div className="image position-relative overflow-hidden">
+                                        <img src={item.image} className="img-fluid" alt=""/>
+
+                                        <div className="blog-tag">
+                                            <Link to="#" className="badge text-bg-light">{item.tag}</Link>
+                                        </div>
+                                    </div>
+
+                                    <div className="card-body content">
+                                        <Link to={`/blog-detail-three/${item.id}`} className="h5 title text-dark d-block mb-0">{item.title}</Link>
+                                        <p className="text-muted mt-2 mb-2">{item.desc}</p>
+                                        <Link to={`/blog-detail-three/${item.id}`} className="link text-dark">Read More <FiArrowRight className="align-middle"/></Link>
+                                    </div>
+                                </div>
+                            </div>
+                            )
+                        })}
+                        </Masonry>
+                    </ResponsiveMasonry>
+                </div>
+
+                <div className="row mt-4">
+                    <div className="col-12">
+                        <ul className="pagination justify-content-center mb-0">
+                            <li className="page-item">
+                                <Link className="page-link" to="#" aria-label="Previous">
+                                    <span aria-hidden="true"><i className="mdi mdi-chevron-left mdi-18px"></i></span>
+                                </Link>
+                            </li>
+                            <li className="page-item"><Link className="page-link" to="#">1</Link></li>
+                            <li className="page-item"><Link className="page-link active" to="#">2</Link></li>
+                            <li className="page-item"><Link className="page-link" to="#">3</Link></li>
+                            <li className="page-item">
+                                <Link className="page-link" to="#" aria-label="Next">
+                                    <span aria-hidden="true"><i className="mdi mdi-chevron-right mdi-18px"></i></span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <FooterSix/>
+        <ScrollTop/>
+        </>
+    )
+}
